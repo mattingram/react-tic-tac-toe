@@ -13,13 +13,27 @@ function Board({ nextPlayer, squares, onPlay }) {
   let status;
 
   const winner = calculateWinner(squares);
+  const draw = isDraw();
   const winningSquares = calculateWinningSquares(squares);
 
   if (winner) {
     status = "Winner: " + winner;
   }
+  else if (draw) {
+    status = "It's a draw!";
+  }
   else {
     status = "The next player is: " + nextPlayer;
+  }
+
+  function isDraw() {
+    if (winner) {
+      return false;
+    }
+    if (squares.every((square) => square !== null)) {
+      return true;
+    }
+    return false;
   }
 
   function isWinningSquare(i) {
@@ -27,7 +41,7 @@ function Board({ nextPlayer, squares, onPlay }) {
   }
 
   function handleClick(i) {
-    if (squares[i] || winner) {
+    if (squares[i] || winner || draw) {
       return;
     }
     const newSquares = squares.slice();
