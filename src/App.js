@@ -35,24 +35,22 @@ function Board({ nextPlayer, squares, onPlay }) {
     onPlay(newSquares);
   }
 
+  function makeRows() {
+    let rows = [];
+    for (let i = 0; i < 3; i++) {
+      let row = [];
+      for (let j = 0; j < 3; j++) {
+        row.push(<Square value={squares[i * 3 + j]} onSquareClick={() => handleClick(i * 3 + j)} isWinningSquare={isWinningSquare(i * 3 + j)} />);
+      }
+      rows.push(<div className="board-row">{row}</div>);
+    }
+    return rows;
+  }
+
   return (
     <>
       <div className="status">Status: {status}</div>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} isWinningSquare={isWinningSquare(0)}/>
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} isWinningSquare={isWinningSquare(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} isWinningSquare={isWinningSquare(2)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} isWinningSquare={isWinningSquare(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} isWinningSquare={isWinningSquare(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} isWinningSquare={isWinningSquare(5)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} isWinningSquare={isWinningSquare(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} isWinningSquare={isWinningSquare(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} isWinningSquare={isWinningSquare(8)} />
-      </div>
+      {makeRows()}
     </>
   );
 
