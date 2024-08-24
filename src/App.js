@@ -73,20 +73,18 @@ function Board({ nextPlayer, squares, onPlay }) {
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [nextPlayer, setNextPlayer] = useState("X");
   const [currentMove, setCurrentMove] = useState(0);
+  let nextPlayer = currentMove % 2 === 0 ? "X" : "O";
   const currentSquares = history[currentMove];
 
   function handlePlay(newSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), newSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
-    setNextPlayer(nextPlayer === "X" ? "O" : "X")
   }
 
   function jumpToMove(move) {
     setCurrentMove(move);
-    setNextPlayer(move % 2 == 0 ? "X" : "O");
   }
 
   const moves = history.map((squares, move) => {
